@@ -1,0 +1,22 @@
+{
+  "name": "yqg-tool",
+  "version": "0.0.1",
+  "description": "Pure Javascript Tools shared between projects.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yqg-fe/tool.git"
+  },
+  "keywords": [
+    "tool"
+  ],
+  "author": "panezhang",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/yqg-fe/tool/issues"
+  },
+  "homepage": "https://github.com/yqg-fe/tool#readme",
+  "dependencies": {
+    "jsondiffpatch": "^0.1.43"
+  },
+  "main": "index.js"
+}

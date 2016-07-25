@@ -1,0 +1,17 @@
+{
+    "preset": "airbnb",
+    "excludeFiles": ["**/build/**", "**/node_modules/**", "**/log/**", "**/vendor/**"],
+    "validateIndentation": 4,
+    "validateQuoteMarks": null,
+
+    "disallowTrailingComma": true,
+    "disallowSpacesInsideObjectBrackets": true,
+    "disallowQuotedKeysInObjects": null,
+
+    "maximumLineLength": 120,
+
+    "requireTrailingComma": null,
+    "requireSpacesInsideObjectBrackets": null,
+
+    "safeContextKeyword": ["self", "vm"]
+}
