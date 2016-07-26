@@ -4,7 +4,13 @@
  * @file json
  */
 
+// node modules
+import extend from 'extend';
+
+// our modules
 import JsonDiffPatcher from './JsonDiffPatcher';
+
+const deepCopy = (obj) => extend(true, {}, obj);
 
 /**
  * Web Generator工具
@@ -23,15 +29,20 @@ import JsonDiffPatcher from './JsonDiffPatcher';
  * @param patch 上一次保存page时，page跟当时版本template的diff
  */
 const patchPage = ({template, page, patch}) => {
-    const templateA = JsonDiffPatcher.unpatch(page, patch);
+    const templateA = JsonDiffPatcher.unpatch(deepCopy(page), patch);
     const patchA = JsonDiffPatcher.diff(templateA, template);
+
+    let result = deepCopy(page);
     if (patchA) {
-        page = JsonDiffPatcher.patch(page, patchA);
+        result = JsonDiffPatcher.patch(result, patchA);
     }
 
-    return page;
+    return result;
 };
 
 export default {
+    deepCopy,
+
+    diff: JsonDiffPatcher.diff.bind(JsonDiffPatcher),
     patchPage
 };

@@ -7,7 +7,6 @@
 import {expect} from 'chai';
 
 import JsonTool from '../JsonTool';
-import JsonDiffPatcher from '../JsonDiffPatcher';
 
 describe('Web Generator工具测试', () => {
     const block1 = {
@@ -63,7 +62,7 @@ describe('Web Generator工具测试', () => {
         blocks: [page.blocks[1], page.blocks[0]]
     };
 
-    const patch = JsonDiffPatcher.diff(templateA, page);
+    const patch = JsonTool.diff(templateA, page);
 
     it('当template没有变化时，应该返回原始页面', () => {
         expect(JsonTool.patchPage({template: templateA, page, patch})).to.deep.equal(page);

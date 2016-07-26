@@ -2,6 +2,7 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var extend = _interopDefault(require('extend'));
 var _JSON$stringify = _interopDefault(require('babel-runtime/core-js/json/stringify'));
 var jsondiffpatch = _interopDefault(require('jsondiffpatch'));
 
@@ -10,6 +11,10 @@ var JsonDiffPatcher = jsondiffpatch.create({
     return obj.id || _JSON$stringify(obj);
   }
 });
+
+var deepCopy = function deepCopy(obj) {
+    return extend(true, {}, obj);
+};
 
 /**
  * Web Generator工具
@@ -32,16 +37,21 @@ var patchPage = function patchPage(_ref) {
     var page = _ref.page;
     var patch = _ref.patch;
 
-    var templateA = JsonDiffPatcher.unpatch(page, patch);
+    var templateA = JsonDiffPatcher.unpatch(deepCopy(page), patch);
     var patchA = JsonDiffPatcher.diff(templateA, template);
+
+    var result = deepCopy(page);
     if (patchA) {
-        page = JsonDiffPatcher.patch(page, patchA);
+        result = JsonDiffPatcher.patch(result, patchA);
     }
 
-    return page;
+    return result;
 };
 
 var JsonTool = {
+    deepCopy: deepCopy,
+
+    diff: JsonDiffPatcher.diff.bind(JsonDiffPatcher),
     patchPage: patchPage
 };
 

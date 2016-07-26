@@ -1,9 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('babel-runtime/core-js/json/stringify'), require('jsondiffpatch')) :
-    typeof define === 'function' && define.amd ? define(['babel-runtime/core-js/json/stringify', 'jsondiffpatch'], factory) :
-    (global.yqg-tool = factory(global._JSON$stringify,global.jsondiffpatch));
-}(this, function (_JSON$stringify,jsondiffpatch) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('extend'), require('babel-runtime/core-js/json/stringify'), require('jsondiffpatch')) :
+    typeof define === 'function' && define.amd ? define(['extend', 'babel-runtime/core-js/json/stringify', 'jsondiffpatch'], factory) :
+    (global.yqg-tool = factory(global.extend,global._JSON$stringify,global.jsondiffpatch));
+}(this, function (extend,_JSON$stringify,jsondiffpatch) { 'use strict';
 
+    extend = 'default' in extend ? extend['default'] : extend;
     _JSON$stringify = 'default' in _JSON$stringify ? _JSON$stringify['default'] : _JSON$stringify;
     jsondiffpatch = 'default' in jsondiffpatch ? jsondiffpatch['default'] : jsondiffpatch;
 
@@ -12,6 +13,10 @@
         return obj.id || _JSON$stringify(obj);
       }
     });
+
+    var deepCopy = function deepCopy(obj) {
+        return extend(true, {}, obj);
+    };
 
     /**
      * Web Generator工具
@@ -34,16 +39,21 @@
         var page = _ref.page;
         var patch = _ref.patch;
 
-        var templateA = JsonDiffPatcher.unpatch(page, patch);
+        var templateA = JsonDiffPatcher.unpatch(deepCopy(page), patch);
         var patchA = JsonDiffPatcher.diff(templateA, template);
+
+        var result = deepCopy(page);
         if (patchA) {
-            page = JsonDiffPatcher.patch(page, patchA);
+            result = JsonDiffPatcher.patch(result, patchA);
         }
 
-        return page;
+        return result;
     };
 
     var JsonTool = {
+        deepCopy: deepCopy,
+
+        diff: JsonDiffPatcher.diff.bind(JsonDiffPatcher),
         patchPage: patchPage
     };
 
