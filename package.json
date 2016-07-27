@@ -1,6 +1,6 @@
 {
     "name": "yqg-tool",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Pure Javascript Tools shared between projects.",
     "repository": {
         "type": "git",
@@ -25,6 +25,7 @@
         ]
     },
     "dependencies": {
+        "babel-runtime": "^6.11.6",
         "extend": "^3.0.0",
         "jsondiffpatch": "^0.1.43"
     },

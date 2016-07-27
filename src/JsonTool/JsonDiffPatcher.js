@@ -6,5 +6,5 @@
 
 import jsondiffpatch from 'jsondiffpatch';
 export default jsondiffpatch.create({
-    objectHash: (obj) => (obj.id || JSON.stringify(obj))
+    objectHash: (obj) => (obj._id || JSON.stringify(obj))   // eslint-disable-line no-underscore-dangle
 });

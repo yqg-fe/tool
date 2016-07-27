@@ -10,8 +10,8 @@
 
     var JsonDiffPatcher = jsondiffpatch.create({
       objectHash: function objectHash(obj) {
-        return obj.id || _JSON$stringify(obj);
-      }
+        return obj._id || _JSON$stringify(obj);
+      } // eslint-disable-line no-underscore-dangle
     });
 
     var deepCopy = function deepCopy(obj) {
